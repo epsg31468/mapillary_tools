@@ -10,7 +10,7 @@ import random
 import string
 from Queue import Queue
 import threading
-import exifread
+#import exifread
 import time
 
 '''
@@ -145,24 +145,24 @@ def create_dirs():
         os.mkdir("failed")
 
 
-def exif_has_mapillary_tags(filename):
-    '''
-    Check that image file has the required Mapillary tags in EXIF fields.
-    '''
-    description_tag = "Image ImageDescription"
-    with open(filename, 'rb') as f:
-        tags = exifread.process_file(f)
+# def exif_has_mapillary_tags(filename):
+#     '''
+#     Check that image file has the required Mapillary tags in EXIF fields.
+#     '''
+#     description_tag = "Image ImageDescription"
+#     with open(filename, 'rb') as f:
+#         tags = exifread.process_file(f)
 
-    # make sure there are Mapillary tags in Image Decription
-    if description_tag in tags:
-        if "MAPSequenceUUID" in tags[description_tag].values:
-            return True
-        else:
-            print("File does not have Mapillary EXIF tags, consider using upload_with_authentication.py instead.")
-            return False
-    else:
-        print("File does not have any Image Description in EXIF tags.")
-        return False
+#     # make sure there are Mapillary tags in Image Decription
+#     if description_tag in tags:
+#         if "MAPSequenceUUID" in tags[description_tag].values:
+#             return True
+#         else:
+#             print("File does not have Mapillary EXIF tags, consider using upload_with_authentication.py instead.")
+#             return False
+#     else:
+#         print("File does not have any Image Description in EXIF tags.")
+#         return False
 
 
 class UploadThread(threading.Thread):
@@ -210,10 +210,10 @@ if __name__ == '__main__':
     # create upload queue with all files
     q = Queue()
     for filepath in file_list:
-        if exif_has_mapillary_tags(filepath):
-            q.put(filepath)
-        else:
-            print("Skipping: {0}".format(filepath))
+#        if exif_has_mapillary_tags(filepath):
+#            q.put(filepath)
+#        else:
+#            print("Skipping: {0}".format(filepath))
 
     # create uploader threads
     uploaders = [UploadThread(q) for i in range(NUMBER_THREADS)]
