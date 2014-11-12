@@ -211,7 +211,7 @@ if __name__ == '__main__':
     q = Queue()
     for filepath in file_list:
 #        if exif_has_mapillary_tags(filepath):
-#            q.put(filepath)
+         q.put(filepath)
 #        else:
 #            print("Skipping: {0}".format(filepath))
 
